@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 
-namespace Serial {
+namespace SerialUtils {
 
 struct CmdMsg{
     bool is_relative;
