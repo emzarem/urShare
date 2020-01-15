@@ -6,8 +6,11 @@
 namespace SerialUtils {
 
 struct CmdMsg {
+    /* Data to send to Teensy */
     bool is_relative;
     float m1_angle, m2_angle, m3_angle;
+    /* Data to be received from Teensy */
+    bool motors_done;
 };
 
 union Packet {
