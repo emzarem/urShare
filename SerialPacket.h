@@ -1,11 +1,11 @@
 #pragma once
 
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace SerialUtils {
 
-struct CmdMsg{
+struct CmdMsg {
     bool is_relative;
     float m1_angle, m2_angle, m3_angle;
 };
@@ -16,7 +16,7 @@ union Packet {
 } __attribute__((packed));
 
 inline void pack(std::vector<char> &dest, CmdMsg &src) {
-    Packet pkt = { .msg=src };
+    Packet pkt = {.msg = src};
     dest.insert(dest.end(), pkt.bytes, pkt.bytes + sizeof(CmdMsg));
 }
 
@@ -26,4 +26,13 @@ inline void unpack(std::vector<char> &src, CmdMsg &dest) {
     dest = pkt.msg;
 }
 
+inline void unpack(std::vector<char>::iterator start,
+                   std::vector<char>::iterator end,
+                   CmdMsg &dest) {
+    Packet pkt;
+    std::copy(start, end, pkt.bytes);
+    dest = pkt.msg;
 }
+
+
+}  // namespace SerialUtils
