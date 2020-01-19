@@ -2,6 +2,7 @@
 
 #include <string>
 #include <vector>
+#include <sstream>
 
 namespace SerialUtils {
 
@@ -11,6 +12,18 @@ struct CmdMsg {
     float m1_angle, m2_angle, m3_angle;
     /* Data to be received from Teensy */
     bool motors_done;
+
+    operator std::string() const
+    {
+        std::ostringstream oss;
+        oss << "CmdMsg " << this << ":" << std::endl
+            << "    is_relative: " << this->is_relative << std::endl
+            << "    m1_angle: " << this->m1_angle << std::endl
+            << "    m2_angle: " << this->m2_angle << std::endl
+            << "    m3_angle: " << this->m3_angle << std::endl
+            << "    motors_done: " << this->motors_done << std::endl;
+        return oss.str();
+    }
 };
 
 union Packet {
