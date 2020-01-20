@@ -6,6 +6,8 @@
 
 namespace SerialUtils {
 
+static const char DELIMITER = '\n';
+
 struct CmdMsg {
     /* Data to send to Teensy */
     bool is_relative;
@@ -34,6 +36,7 @@ union Packet {
 inline void pack(std::vector<char> &dest, CmdMsg &src) {
     Packet pkt = {.msg = src};
     dest.insert(dest.end(), pkt.bytes, pkt.bytes + sizeof(CmdMsg));
+    dest.push_back(DELIMITER);
 }
 
 inline void unpack(std::vector<char> &src, CmdMsg &dest) {
