@@ -42,12 +42,12 @@ struct CmdMsg {
             << "    cmd_success: " << this->cmd_success << std::endl;
         return oss.str();
     }
-} __attribute__((packed));
+};
 
 union Packet {
     CmdMsg msg;
     char bytes[sizeof(CmdMsg)];
-};
+} __attribute__((packed));
 
 inline void pack(std::vector<char> &dest, CmdMsg &src) {
     Packet pkt = {.msg = src};
