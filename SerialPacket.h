@@ -24,7 +24,7 @@ struct CmdMsg {
 
     /* Data to send to Teensy */
     bool is_relative;
-    float mtr_angles[3];
+    int mtr_angles[3];
     
     /* Data to be received from Teensy */
     bool cmd_success;
