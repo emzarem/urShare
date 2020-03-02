@@ -11,10 +11,11 @@ static const int MAX_SUPPORTED_MTRS = 3;
 static const char DELIMITER = '\n';
 
 enum CmdType {
-    CMDTYPE_MTRS = 0,   // Actuate motors
-    CMDTYPE_CAL,        // Calibrate motors
-    CMDTYPE_ENDEFF_ON,  // Turn ee on
-    CMDTYPE_ENDEFF_OFF  // Turn ee off
+    CMDTYPE_MTRS = 0,    // Actuate motors
+    CMDTYPE_CAL,         // Calibrate motors
+    CMDTYPE_ENDEFF_ON,   // Turn ee on
+    CMDTYPE_ENDEFF_OFF,  // Turn ee off
+    CMDTYPE_CONFIG       // Set speed / accel
 };
 
 struct CmdMsg {
@@ -24,6 +25,8 @@ struct CmdMsg {
     /* Data to send to Teensy */
     int is_relative;
     int mtr_angles[MAX_SUPPORTED_MTRS];
+    int mtr_speed_deg_s;
+    int mtr_accel_deg_s_s;
 
     /* Data to be received from Teensy */
     int cmd_success;
@@ -45,6 +48,8 @@ struct CmdMsg {
             << "    m1_angle: " << this->mtr_angles[0] << std::endl
             << "    m2_angle: " << this->mtr_angles[1] << std::endl
             << "    m3_angle: " << this->mtr_angles[2] << std::endl
+            << "    mtr_speed_deg_s: " << this->mtr_speed_deg_s << std::endl
+            << "    mtr_accel_deg_s_s: " << this->mtr_accel_deg_s_s << std::endl
             << "    cmd_success: " << this->cmd_success << std::endl;
         return oss.str();
     }
