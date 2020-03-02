@@ -1,8 +1,8 @@
 #pragma once
 
+#include <sstream>
 #include <string>
 #include <vector>
-#include <sstream>
 
 namespace SerialUtils {
 
@@ -11,11 +11,10 @@ static const int MAX_SUPPORTED_MTRS = 3;
 static const char DELIMITER = '\n';
 
 enum CmdType {
-    CMDTYPE_MTRS = 0,          // Actuate motors
-    CMDTYPE_CAL,               // Calibrate motors
-    CMDTYPE_ENDEFF_ON,         // Turn ee on
-    CMDTYPE_ENDEFF_OFF,        // Turn ee off
-    CMDTYPE_RESP
+    CMDTYPE_MTRS = 0,   // Actuate motors
+    CMDTYPE_CAL,        // Calibrate motors
+    CMDTYPE_ENDEFF_ON,  // Turn ee on
+    CMDTYPE_ENDEFF_OFF  // Turn ee off
 };
 
 struct CmdMsg {
@@ -24,14 +23,21 @@ struct CmdMsg {
 
     /* Data to send to Teensy */
     int is_relative;
-    int mtr_angles[3];
-    
+    int mtr_angles[MAX_SUPPORTED_MTRS];
+
     /* Data to be received from Teensy */
     int cmd_success;
 
     /* operators */
-    operator std::string() const
-    {
+    bool operator==(const CmdMsg &rhs) {
+        bool ret = cmd_type == rhs.cmd_type && is_relative == rhs.is_relative;
+        for (int i = 0; i < MAX_SUPPORTED_MTRS; i++)
+            ret &= mtr_angles[i] == rhs.mtr_angles[i];
+
+        return ret;
+    }
+
+    operator std::string() const {
         std::ostringstream oss;
         oss << "CmdMsg " << this << ":" << std::endl
             << "    cmd_type: " << this->cmd_type << std::endl
