@@ -23,11 +23,11 @@ struct CmdMsg {
     CmdType cmd_type;
 
     /* Data to send to Teensy */
-    bool is_relative;
+    int is_relative;
     int mtr_angles[3];
     
     /* Data to be received from Teensy */
-    bool cmd_success;
+    int cmd_success;
 
     /* operators */
     operator std::string() const
@@ -46,8 +46,8 @@ struct CmdMsg {
 
 union Packet {
     CmdMsg msg;
-    char bytes[sizeof(CmdMsg)];
-} __attribute__((packed));
+    char bytes[sizeof(CmdMsg) + 1];
+};
 
 inline void pack(std::vector<char> &dest, CmdMsg &src) {
     Packet pkt = {.msg = src};
