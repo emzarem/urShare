@@ -11,10 +11,11 @@ static const int MAX_SUPPORTED_MTRS = 3;
 static const char DELIMITER = '\n';
 
 enum CmdType {
-    CMDTYPE_MTRS = 0,   // Actuate motors
-    CMDTYPE_CAL,        // Calibrate motors
-    CMDTYPE_ENDEFF_ON,  // Turn ee on
-    CMDTYPE_ENDEFF_OFF  // Turn ee off
+    CMDTYPE_MTRS = 0,    // Actuate motors
+    CMDTYPE_CAL,         // Calibrate motors
+    CMDTYPE_ENDEFF_ON,   // Turn ee on
+    CMDTYPE_ENDEFF_OFF,  // Turn ee off
+    CMDTYPE_CONFIG       // Set speed / accel
 };
 
 struct CmdMsg {
