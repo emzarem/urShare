@@ -23,13 +23,13 @@ struct CmdMsg {
     CmdType cmd_type;
 
     /* Data to send to Teensy */
-    int is_relative;
-    int mtr_angles[MAX_SUPPORTED_MTRS];
-    int mtr_speed_deg_s;
-    int mtr_accel_deg_s_s;
+    uint32_t is_relative;
+    uint32_t mtr_angles[MAX_SUPPORTED_MTRS];
+    uint32_t mtr_speed_deg_s;
+    uint32_t mtr_accel_deg_s_s;
 
     /* Data to be received from Teensy */
-    int cmd_success;
+    uint32_t cmd_success;
 
     /* operators */
     bool operator==(const CmdMsg &rhs) {
