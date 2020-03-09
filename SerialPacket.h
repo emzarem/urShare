@@ -53,7 +53,7 @@ struct CmdMsg {
             << "    cmd_success: " << this->cmd_success << std::endl;
         return oss.str();
     }
-};
+}__attribute__((__packed__));
 
 union Packet {
     CmdMsg msg;
